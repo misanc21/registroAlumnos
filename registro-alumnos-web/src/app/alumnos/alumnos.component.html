@@ -1,0 +1,58 @@
+<main>
+  <h1>Registro de Alumnos</h1>
+
+  <!-- FORMULARIO: sirve para crear y para editar -->
+  <form (ngSubmit)="guardar()" class="tarjeta">
+    <h2>{{ editandoId() === null ? 'Nuevo alumno' : 'Editar alumno' }}</h2>
+
+    <label for="nombre">Nombre</label>
+    <input id="nombre" name="nombre" [(ngModel)]="nombre" placeholder="Ana López Ruiz" />
+
+    <label for="grupo">Grupo</label>
+    <input id="grupo" name="grupo" [(ngModel)]="grupo" placeholder="3°B" />
+
+    <label for="promedio">Promedio</label>
+    <input id="promedio" name="promedio" type="number" min="0" max="10" step="0.1"
+           [(ngModel)]="promedio" placeholder="8.5" />
+
+    <div class="botones">
+      <button type="submit">{{ editandoId() === null ? 'Guardar' : 'Guardar cambios' }}</button>
+      @if (editandoId() !== null) {
+        <button type="button" class="secundario" (click)="limpiarFormulario()">Cancelar</button>
+      }
+    </div>
+  </form>
+
+  @if (error()) {
+    <p class="error">{{ error() }}</p>
+  }
+
+  <!-- TABLA: muestra los alumnos que manda la API -->
+  <table class="tarjeta">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Grupo</th>
+        <th>Promedio</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (alumno of alumnos(); track alumno.id) {
+        <tr>
+          <td>{{ alumno.nombre }}</td>
+          <td>{{ alumno.grupo }}</td>
+          <td class="numero">{{ alumno.promedio | number: '1.1-1' }}</td>
+          <td class="acciones">
+            <button type="button" class="secundario" (click)="editar(alumno)">Editar</button>
+            <button type="button" class="peligro" (click)="eliminar(alumno)">Borrar</button>
+          </td>
+        </tr>
+      } @empty {
+        <tr>
+          <td colspan="4" class="vacio">Todavía no hay alumnos. Agrega el primero con el formulario.</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</main>

@@ -1,0 +1,43 @@
+# Pruebas de la API. En VS Code da clic en "Send Request" arriba de cada petición.
+# La API debe estar corriendo (dotnet run).
+
+@api = http://localhost:5000/api/alumnos
+
+### Ver todos los alumnos
+GET {{api}}
+
+### Ver un alumno
+GET {{api}}/1
+
+### Crear un alumno
+POST {{api}}
+Content-Type: application/json
+
+{
+  "nombre": "Diego Ramírez Cruz",
+  "grupo": "1°A",
+  "promedio": 8.1
+}
+
+### Editar un alumno
+PUT {{api}}/1
+Content-Type: application/json
+
+{
+  "nombre": "Ana López Ruiz",
+  "grupo": "3°B",
+  "promedio": 9.0
+}
+
+### Borrar un alumno
+DELETE {{api}}/3
+
+### Probar la validación (debe responder 400)
+POST {{api}}
+Content-Type: application/json
+
+{
+  "nombre": "",
+  "grupo": "2°A",
+  "promedio": 15
+}

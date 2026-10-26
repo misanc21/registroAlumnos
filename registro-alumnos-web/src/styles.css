@@ -1,0 +1,7 @@
+/* Estilos generales de toda la aplicación */
+body {
+  margin: 0;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  background: #f5f6f9;
+  color: #1b1e2b;
+}
